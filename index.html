@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Beer Api</title>
+    
+    <meta name="description" content="test test test">
+  
+    <link rel="stylesheet" href="main.css">
+
+    <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <header role="banner">
+
+    </header>
+
+    <main role="main">
+        <div class="container">
+        <section>
+            <h1>Let's Find a Brewery</h1>
+            <form id="start-form">
+                <label for="brewery-name">Brewery Name: </label>
+                <input type="text" id="brewery-name" placeholder="beer place"><br />
+
+                <label for="brewery-state">State: </label>
+                <input type="text" id="brewery-state" placeholder="Michigan">
+
+                <input type="submit" class="btn-submit" value="submit">
+            </form>
+        </section>
+
+        <section id="results" class="hidden">
+            <h2>Results</h2>
+            <ul id="results-list"></ul>
+
+        </section>
+        </div>
+    </main>
+
+    <footer role="contentinfo">
+
+    </footer>
+    <script src="script.js"></script>
+</body>
+</html>
