@@ -55,18 +55,16 @@
         </section>
 
         <section>
+            <h3>Find Another Brewery</h3>
             <form class="main-form js-main-form">
-                <label for="main-name">Search by Brewery Name: </label>
-                <input type="text" id="main-name" class="js-main-name" placeholder="">
-                <div>OR</div>
-                <label for="main-city">City: </label>
-                <input type="text" id="main-city" class="js-main-city" placeholder="">
-                <label for="main-state">State: </label>
-                <input type="text" id="main-state" class="js-main-state" placeholder="">
-                <label for="main-brewery">Number of Breweries: </label>
-                <input type="number" id="main-brewery" class="js-main-brewery" min="1" max="50" value="20">
-                <label for="main-type">Brewery Type: </label>
-                <select id="main-type" class="js-main-type">
+                <label for="main-city" class="item-a">City:</label>
+                <input type="text" id="main-city" class="item-b js-main-city" placeholder="Grand Rapids">
+                <label for="main-state" class="item-c">State:</label>
+                <input type="text" id="main-state" class="item-d js-main-state" placeholder="Michigan">
+                <label for="main-brewery" class="item-e">Max Number:</label>
+                <input type="number" id="main-brewery" class="item-f js-main-brewery" min="1" max="50" value="20">
+                <label for="main-type" class="item-g">Brewery Type:</label>
+                <select id="main-type" class="item-h js-main-type">
                     <option value="">all</option>
                     <option value="micro">micro</option>
                     <option value="regional">regional</option>
@@ -77,12 +75,12 @@
                     <option value="contract">contract</option>
                     <option value="proprietor">proprietor</option>
                 </select>
-                <input type="button" class="btn-main-submit" value="submit">
+                <input type="submit" class="item-i btn-main-submit" value="submit">
             </form>
         </section>
 
         <section id="results">
-            <h2>Results</h2>
+            <h3>Results</h3>
             <ul class="results-list js-results-list"></ul>
         </section>
     </main>
