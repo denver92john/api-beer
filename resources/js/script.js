@@ -9,7 +9,8 @@ function formatQueryString(paramsObj) {
 
 /* ----- 6 ----- */
 function renderResults(responseJson) {
-    $('#results-list').empty();
+    $('.js-results-list').empty();
+    console.log(responseJson);
 
     responseJson.forEach(brewery => {
         $('.js-results-list').append(
@@ -32,13 +33,23 @@ function fetchResults(uri) {
     fetch(uri)
         .then(response => {
             if (response.ok) {
+                $('.js-error-message').text('');
                 return response.json();
             } else {
                 throw new Error(response.statusText);
             }
         })
-        .then(responseJson => renderResults(responseJson))
-        .catch(err => console.log(`There was an issue: ${err}`));
+        .then(responseJson => {
+            if (responseJson.length < 1) {
+                throw new Error(`No results were returned. Try a different search.`);
+            } else {
+               renderResults(responseJson);
+            }
+        })
+        .catch(err => {
+            $('.js-error-message').text(`There was an issue: ${err.message}`);
+            console.log(`There was an issue: ${err}`);
+        });
 }
 
 /* ----- 2 ----- */
@@ -56,6 +67,7 @@ function formParams(city, state, number, type) {
             newParams[key] = params[key];
         }
     }
+
     console.log(newParams);
     return newParams;
 }
@@ -80,13 +92,19 @@ function handleStartForm() {
         const userBreweryState = $('.js-brewery-state').val();
         const userBreweryNumber = $('.js-brewery-number').val();
         const userBreweryType = $('.js-type-selector').val();
-        const paramsObj = formParams(userBreweryCity, userBreweryState, userBreweryNumber, userBreweryType);
-
+        $('.js-brewery-city').val('');
+        $('.js-brewery-state').val('');
+        $('.js-brewery-number').val('20');
+        $('.js-type-selector').val('');
         $('.js-start-section').hide();
+
+        const paramsObj = formParams(userBreweryCity, userBreweryState, userBreweryNumber, userBreweryType);
+        
         getBrewery(paramsObj);
     });
 }
 
+/* ----- 1 ----- */
 function handleMainForm() {
     $('.js-main-form').on('submit', function(event) {
         event.preventDefault();
@@ -95,14 +113,23 @@ function handleMainForm() {
         const userBreweryState = $('.js-main-state').val();
         const userBreweryNumber = $('.js-main-number').val();
         const userBreweryType = $('.js-main-type').val();
-        const paramsObj = formParams(userBreweryCity, userBreweryState, userBreweryNumber, userBreweryType);
+        $('.js-main-city').val('');
+        $('.js-main-state').val('');
+        $('.js-main-number').val('20');
+        $('.js-main-type').val('');
 
+        const paramsObj = formParams(userBreweryCity, userBreweryState, userBreweryNumber, userBreweryType);
         getBrewery(paramsObj);
     });
+}
+
+function logoClick() {
+    $('.js-logo').on('click', () => $('.js-start-section').show());
 }
 
 $(function() {
     console.log('App ready');
     handleStartForm();
     handleMainForm();
+    logoClick();
 });
