@@ -1,7 +1,19 @@
 /* ---------- BASIC SETUP ---------- */
+:root {
+    --basis: 1em;
+    --stepUp4: calc(var(--stepUp3) * 1.143);
+    --stepUp3: calc(var(--stepUp2) * 1.167);
+    --stepUp2: calc(var(--stepUp1) * 1.2);
+    --stepUp1: calc(var(--basis) * 1.25);
+    --stepDown1: calc(var(--basis) * 0.875);
+    --stepDown2: calc(var(--stepDown1) * 0.857);
+    --stepDown3: calc(var(--stepDown2) * 0.833);
+    --stepDown4: calc(var(--stepDown3) * 0.8);
+}
+
 html {
     box-sizing: border-box;
-    font-size: 16px;
+    font-size: var(--basis);
 }
 
 *, *:before, *:after {
@@ -14,13 +26,93 @@ html {
     padding: 10px;
 }
 
+/* ---------- TEXT ---------- */
+h1 {
+    font-size: var(--stepUp4);
+    color: white;
+    text-align: center;
+}
+
+h2 {
+    font-size: var(--stepUp3);
+}
+
+h3 {
+    font-size: var(--stepUp2);
+}
+
+h4 {
+    font-size: var(--stepUp1);
+}
 
 
+/* ---------- FORMS ---------- */
+form {
+    font-size: var(--stepUp1);
+}
+
+input[type="text"] {
+    width: 100%;
+    text-indent: 5px;
+}
+
+input,
+select {
+    font-size: var(--stepDown1);
+    padding: .1em .25em;
+    border: 2px solid yellowgreen;
+    border-radius: 0.25em;
+    color: yellowgreen;
+}
+
+input:focus,
+select:focus,
+input:hover,
+select:hover {
+    color: yellowgreen;
+    box-shadow: inset 0 0 5px yellowgreen, 0 1px 6px 0 yellowgreen;
+    outline: 5px  yellowgreen;
+}
+
+input[type="submit"] {
+    position: relative;
+    background-color: moccasin;
+    padding: .2em .5em;
+}
+
+input[type="submit"]:hover {
+    background-color: yellowgreen;
+    color: moccasin;
+}
+
+input[type="submit"]:active {
+    top: 0.1em;
+}
+
+
+/* ---------- LINKS ---------- */
+a:link,
+a:visited {
+    text-decoration: none;
+    color: brown;
+}
+
+a:hover,
+a:active {
+    text-decoration: underline;
+    text-decoration-color: yellowgreen;
+    color: yellowgreen;
+}
+
+
+
+/* ---------- HEADER ---------- */
 header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    height: 85px;
+    width: 100vw;
+    height: 12vh;
     background-color: yellowgreen;
 }
 
@@ -38,141 +130,96 @@ header {
     background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(../img/beers.jpg) 50% 90% / cover no-repeat;
     color: white;
     padding-top: 7vh;
-}
-
-h1 {
-    color: white;
-    text-align: center;
+    z-index: 100;
 }
 
 .start-form {
     display: grid;
-    grid-template-columns: 1fr 2fr;
-    grid-template-rows: 2em 2em auto 2em 2em;
-    grid-column-gap: .8em;
-    grid-row-gap: .5em;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: repeat(5, 1.75em);
+    grid-row-gap: .4em;
     place-items: center start;
-    padding: 1.5em 0;
+    padding: 1.5em .25em;
     max-width: 320px;
     margin: auto;
-}
-
-.item-1 {
-    grid-column: 1 / 2;
-    grid-row: 1 / 2;
-}
-
-.item-2 {
-    grid-column: 2 / 3;
-    grid-row: 1 / 2;
-}
-
-.item-3 {
-    grid-column: 1 / 2;
-    grid-row: 2 / 3;
-}
-
-.item-4 {
-    grid-column: 2 / 3;
-    grid-row: 2 / 3;
-}
-
-.item-5 {
-    grid-column: 1 / 2;
-    grid-row: 3 / 4;
-}
-
-.item-6 {
-    grid-column: 2 / 3;
-    grid-row: 3 / 4;
-}
-
-.item-7 {
-    grid-column: 1 / 2;
-    grid-row: 4 / 5;
-}
-
-.item-8 {
-    grid-column: 2 / 3;
-    grid-row: 4 / 5;
-}
-
-.item-9 {
-    grid-column: 2 / 3;
-    grid-row: 5 / 6;
-}
-
-/* ---------- MAIN FORM ---------- */
-.main-form-section {
-    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(../img/alcohol-beer-beverage-1128975.jpg) center 40% / cover no-repeat;
-    color: white;
-}
-
-.main-form-title {
-    text-align: center;
-    margin: 15px 0;
-}
-.main-form {
-    display: grid;
-    grid-template-columns: 35% 1em auto;
-    grid-template-rows: auto .5em auto .5em auto .5em auto .5em auto;
-    max-width: 600px;
-    margin: auto;
-    padding: 15px 0;
 }
 
 .item-a {
     grid-column: 1 / 2;
     grid-row: 1 / 2;
-    text-align: right;
 }
 
 .item-b {
-    grid-column: 3 / 4;
+    grid-column: 2 / 4;
     grid-row: 1 / 2;
+    justify-self: end;
 }
 
 .item-c {
     grid-column: 1 / 2;
-    grid-row: 3 / 4;
-    text-align: right;
+    grid-row: 2 / 3;
 }
 
 .item-d {
-    grid-column: 3 / 4;
-    grid-row: 3 / 4;
+    grid-column: 2 / 4;
+    grid-row: 2 / 3;
+    justify-self: end;
 }
 
 .item-e {
-    grid-column: 1 / 2;
-    grid-row: 5 / 6;
-    text-align: right;
+    grid-column: 1 / 3;
+    grid-row: 3 / 4;
 }
 
 .item-f {
     grid-column: 3 / 4;
-    grid-row: 5 / 6;
+    grid-row: 3 / 4;
+    justify-self: end;
 }
 
 .item-g {
-    grid-column: 1 / 2;
-    grid-row: 7 / 8;
-    text-align: right;
+    grid-column: 1 / 3;
+    grid-row: 4 / 5;
 }
 
 .item-h {
     grid-column: 3 / 4;
-    grid-row: 7 / 8;
+    grid-row: 4 / 5;
+    justify-self: end;
 }
 
 .item-i {
-    grid-column: 3 / 4;
-    grid-row: 9 / 10;
+    grid-column: 2 / 3;
+    grid-row: 5 / 6;
+    justify-self: center;
+}
+
+/* ---------- MAIN FORM ---------- */
+/* make this section display: relative to center main form */
+.main-form-section {
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(../img/alcohol-beer-beverage-1128975.jpg) center 40% / cover no-repeat;
+    color: white;
+    width: 100vw;
+    height: 50vh;
+}
+
+.main-form-title {
+    text-align: center;
+    margin: 2vh 0 .7em;
+}
+.main-form {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: repeat(5, 1.75em);
+    grid-row-gap: .4em;
+    place-items: center start;
+    max-width: 370px;
+    margin: auto;
 }
 
 /* ----- RESULTS SECTION ----- */
 .results-section {
-    min-height: 75vh;
+    min-height: 33vh;
 }
 
 .error-message {
@@ -181,14 +228,22 @@ h1 {
 
 .results-list {
     list-style-type: none;
-    padding: 0 10px 0 30px;
-    max-width: 475px;
+    display: flex;
+    flex-direction: column;
+    padding: 0 10px;
+    max-width: 300px;
     margin: auto;
 }
 
 .list-item {
-    padding: 0 10px;
-    margin: 15px auto;
+    margin: 15px 0;
+    line-height: 1.35em;
+    width: 100%;
+    max-width: 280px;
+}
+
+address {
+    margin-bottom: .4em; 
 }
 
 

@@ -9,7 +9,6 @@ function formatQueryString(paramsObj) {
 
 /* ----- 6 ----- */
 function renderResults(responseJson) {
-    $('.js-results-list').empty();
     console.log(responseJson);
 
     responseJson.forEach(brewery => {
@@ -17,11 +16,13 @@ function renderResults(responseJson) {
             `<li class="list-item">
                 <h4>${brewery.name}</h4>
                 <address>
-                    <p>${brewery.street}</p>
-                    <p>${brewery.city}, ${brewery.state}, ${brewery.postal_code}</p>
+                    <a href="https://www.google.com/maps/place/${brewery.street},${brewery.city},${brewery.state},${brewery.postal_code}">
+                        <p>${brewery.street}</p>
+                        <p>${brewery.city}, ${brewery.state}, ${brewery.postal_code}</p>
+                    </a>
                 </address>
-                <p>Brewery Type: ${brewery.brewery_type}</p>
-                <p>Phone: <a href="tel:${brewery.phone}">${brewery.phone}</a></p>
+                <p><b>Brewery Type:</b> ${brewery.brewery_type}</p>
+                <p><b>Phone:</b> <a href="tel:${brewery.phone}">${brewery.phone}</a></p>
                 <p><a href="${brewery.website_url}">Click here to visit their website</a></p>
             </li>`
         );
@@ -30,6 +31,7 @@ function renderResults(responseJson) {
 
 /* ----- 5 ----- */
 function fetchResults(uri) {
+    $('.js-results-list').empty();
     fetch(uri)
         .then(response => {
             if (response.ok) {
@@ -52,6 +54,23 @@ function fetchResults(uri) {
         });
 }
 
+function renderUserSearch(userSearch) {
+    const searchPrint = [];
+    for (let key in userSearch) {
+        if (key == userSearch.by_city || userSearch.by_state) {
+            searchPrint.push(`in ${userSearch[key]}`);
+        } else if (key == userSearch.by_type) {
+            searchPrint.push(`of ${userSearch[key]} type`);
+        }
+    }
+
+    
+    console.log(searchPrint);
+    //$('.js-results-feedback').text(`Returned results for breweries in: `);
+}
+
+
+
 /* ----- 2 ----- */
 function formParams(city, state, number, type) {
     const params = {
@@ -67,6 +86,8 @@ function formParams(city, state, number, type) {
             newParams[key] = params[key];
         }
     }
+
+    //renderUserSearch(newParams);
 
     console.log(newParams);
     return newParams;

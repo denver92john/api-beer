@@ -1,0 +1,9 @@
+@media screen and (min-width: 750px) {
+    .results-list {
+        max-width: 650px;
+        padding: 0;
+        flex-flow: row wrap;
+        justify-content: space-between;
+
+    }   
+}
