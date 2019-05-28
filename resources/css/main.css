@@ -288,6 +288,7 @@ a:active {
 
 .list-item {
     margin: 15px 0;
+    padding: 5px;
     width: 100%;
     max-width: 280px;
 }
@@ -295,8 +296,6 @@ a:active {
 .list-item:hover {
     border: 2px solid var(--color1);
     border-radius: 0.25em;
-    transform: scale(1.03);
-    padding: 5px;
 }
 
 address {
