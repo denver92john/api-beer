@@ -58,6 +58,7 @@ function fetchResults(uri) {
 
 /* ----- 3 ----- */
 function renderUserSearch(userSearch) {
+    // renders search to DOM under Results heading
     const searchPrint = [];
     for (let key in userSearch) {
         searchPrint.push(` ${userSearch[key]}`);
@@ -68,6 +69,7 @@ function renderUserSearch(userSearch) {
 
 /* ----- 2 ----- */
 function formParams(city, state, number, type) {
+    // formats the parameters to be included in the search
     const params = {
         by_city: city,
         by_state: state,
@@ -77,25 +79,25 @@ function formParams(city, state, number, type) {
 
     const newParams = {};
     for (let key in params) {
+        // if any of the parameters are empty strings they aren't included
         if (params[key] != "") {
             newParams[key] = params[key];
         }
     }
 
     renderUserSearch(newParams);
-
     console.log(newParams);
     return newParams;
 }
 
 /* ----- 4 ----- */
 function getBrewery(paramsObj) {
+    // formats uri string to pass in the fetch
     const baseUri = "https://api.openbrewerydb.org/breweries";
     const queryString = formatQueryString(paramsObj);
     const uri = `${baseUri}?${queryString}`;
 
     console.log(uri);
-
     fetchResults(uri);
 }
 
@@ -115,7 +117,6 @@ function handleStartForm() {
         $('.js-start-section').hide();
 
         const paramsObj = formParams(userBreweryCity, userBreweryState, userBreweryNumber, userBreweryType);
-        
         getBrewery(paramsObj);
     });
 }
