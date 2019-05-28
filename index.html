@@ -5,10 +5,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Beer Api</title>
+    <title>brewerySearch</title>
     
-    <meta name="description" content="Find a brewery">
+    <meta name="description" content="Finds you a brewery based on your search criteria.">
   
+    <link href="https://fonts.googleapis.com/css?family=Fjalla+One|Noto+Sans&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="resources/css/main.css">
     <link rel="stylesheet" href="resources/css/queries.css">
 
@@ -16,13 +17,20 @@
 </head>
 
 <body>
-    <header role="banner" class="container">
-        <img src="resources/img/wireframe-box.jpg" class="logo js-logo" alt="wireframe-box">
-        <h2>Header</h2>
+    <header role="banner" class="main-header container">
+        <div class="header-container">
+            <img src="resources/img/beer-logo.png" class="logo js-logo" alt="beer logo">
+            <h2>brewerySearch</h2>
+        </div>
     </header>
 
     <main role="main">
         <section class="start-section js-start-section container">
+            <header class="start-header">
+                <h3 class="header-title">brewerySearch</h3>
+                <img src="resources/img/beer-logo.png" class="header-logo" alt="beer logo">
+            </header>
+
             <h1>Let's Find a Brewery</h1>
             <form class="start-form js-start-form">
                 <label for="start-city" class="item-a">City:</label>
@@ -31,7 +39,7 @@
                 <label for="start-state" class="item-c">State:</label>
                 <input type="text" id="start-state" class="item-d js-brewery-state" placeholder="Ex. Michigan">
                 
-                <label for="start-number" class="item-e">Number of Breweries:</label>
+                <label for="start-number" class="item-e">Max Number:</label>
                 <input type="number" id="start-number" class="item-f js-brewery-number" min="1" max="50" value="20">
                 
                 <label for="start-type" class="item-g">Brewery Type:</label>
@@ -47,7 +55,7 @@
                     <option value="proprietor">proprietor</option>
                 </select>
                 
-                <input type="submit" class="item-i btn-submit" value="submit">
+                <input type="submit" class="item-i" value="submit">
             </form>
         </section>
 
@@ -77,14 +85,16 @@
         </section>
 
         <section class="results-section container">
-            <h3>Results</h3>
-            <p class="js-results-feedback"></p>
-            <p class="error-message js-error-message"></p>
+            <div class="results-heading">
+                <h4>Results</h4>
+                <p class="js-results-feedback"></p>
+                <p class="error-message js-error-message"></p>
+            </div>
             <ul class="results-list js-results-list"></ul>
         </section>
     </main>
 
-    <footer role="contentinfo"></footer>
+    <footer role="contentinfo" class="hidden"></footer>
     <script src="resources/js/script.js"></script>
 </body>
 </html>

@@ -1,13 +1,13 @@
 'use strict';
 
-/* ----- 4 ----- */
+/* ----- 5 ----- */
 function formatQueryString(paramsObj) {
     const queryItems = Object.keys(paramsObj)
         .map(key => `${encodeURIComponent(key)}=${encodeURIComponent(paramsObj[key])}`);
     return queryItems.join('&');
 }
 
-/* ----- 6 ----- */
+/* ----- 7 ----- */
 function renderResults(responseJson) {
     console.log(responseJson);
 
@@ -21,21 +21,22 @@ function renderResults(responseJson) {
                         <p>${brewery.city}, ${brewery.state}, ${brewery.postal_code}</p>
                     </a>
                 </address>
-                <p><b>Brewery Type:</b> ${brewery.brewery_type}</p>
-                <p><b>Phone:</b> <a href="tel:${brewery.phone}">${brewery.phone}</a></p>
-                <p><a href="${brewery.website_url}">Click here to visit their website</a></p>
+                <p class="p-info"><b>Brewery Type:</b> ${brewery.brewery_type}</p>
+                <p class="p-info"><b>Phone:</b> <a href="tel:${brewery.phone}">${brewery.phone}</a></p>
+                <p class="p-info"><a href="${brewery.website_url}">Click here to visit their website</a></p>
             </li>`
         );
     });
 }
 
-/* ----- 5 ----- */
+/* ----- 6 ----- */
 function fetchResults(uri) {
     $('.js-results-list').empty();
     fetch(uri)
         .then(response => {
             if (response.ok) {
                 $('.js-error-message').text('');
+                $('footer').removeClass('hidden');
                 return response.json();
             } else {
                 throw new Error(response.statusText);
@@ -50,26 +51,20 @@ function fetchResults(uri) {
         })
         .catch(err => {
             $('.js-error-message').text(`There was an issue: ${err.message}`);
+            $('footer').addClass('hidden');
             console.log(`There was an issue: ${err}`);
         });
 }
 
+/* ----- 3 ----- */
 function renderUserSearch(userSearch) {
     const searchPrint = [];
     for (let key in userSearch) {
-        if (key == userSearch.by_city || userSearch.by_state) {
-            searchPrint.push(`in ${userSearch[key]}`);
-        } else if (key == userSearch.by_type) {
-            searchPrint.push(`of ${userSearch[key]} type`);
-        }
+        searchPrint.push(` ${userSearch[key]}`);
     }
-
-    
     console.log(searchPrint);
-    //$('.js-results-feedback').text(`Returned results for breweries in: `);
+    $('.js-results-feedback').text(`For: ${searchPrint}`);
 }
-
-
 
 /* ----- 2 ----- */
 function formParams(city, state, number, type) {
@@ -87,13 +82,13 @@ function formParams(city, state, number, type) {
         }
     }
 
-    //renderUserSearch(newParams);
+    renderUserSearch(newParams);
 
     console.log(newParams);
     return newParams;
 }
 
-/* ----- 3 ----- */
+/* ----- 4 ----- */
 function getBrewery(paramsObj) {
     const baseUri = "https://api.openbrewerydb.org/breweries";
     const queryString = formatQueryString(paramsObj);
