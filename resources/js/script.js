@@ -1,13 +1,13 @@
 'use strict';
 
-/* ----- 5 ----- */
+/* ----- 6 ----- */
 function formatQueryString(paramsObj) {
     const queryItems = Object.keys(paramsObj)
         .map(key => `${encodeURIComponent(key)}=${encodeURIComponent(paramsObj[key])}`);
     return queryItems.join('&');
 }
 
-/* ----- 7 ----- */
+/* ----- 8 ----- */
 function renderResults(responseJson) {
     console.log(responseJson);
 
@@ -29,13 +29,11 @@ function renderResults(responseJson) {
     });
 }
 
-/* ----- 6 ----- */
+/* ----- 7 ----- */
 function fetchResults(uri) {
-    $('.js-results-list').empty();
     fetch(uri)
         .then(response => {
             if (response.ok) {
-                $('.js-error-message').text('');
                 $('footer').removeClass('hidden');
                 return response.json();
             } else {
@@ -56,7 +54,7 @@ function fetchResults(uri) {
         });
 }
 
-/* ----- 3 ----- */
+/* ----- 4 ----- */
 function renderUserSearch(userSearch) {
     // renders search to DOM under Results heading
     const searchPrint = [];
@@ -67,7 +65,37 @@ function renderUserSearch(userSearch) {
     $('.js-results-feedback').text(`For: ${searchPrint}`);
 }
 
+function clearDOM() {
+    // clears starting form
+    $('.js-brewery-city').val('');
+    $('.js-brewery-state').val('');
+    $('.js-brewery-number').val('20');
+    $('.js-type-selector').val('');
+
+    // clears 'Find Another Brewery Form'
+    $('.js-main-city').val('');
+    $('.js-main-state').val('');
+    $('.js-main-number').val('20');
+    $('.js-main-type').val('');
+
+    // clears user search criteria and error message
+    $('.js-results-feedback').text('');
+    $('.js-error-message').text('');
+
+    // clears brewery listing
+    $('.js-results-list').empty();
+}
+
 /* ----- 2 ----- */
+function requireCityOrState(city, state) {
+    if (city == '' && state == '') {
+        $('.js-error-message').text(`City or state must be selected.`);
+        $('footer').addClass('hidden');
+        throw `City or state must be selected`;
+    }
+}
+
+/* ----- 3 ----- */
 function formParams(city, state, number, type) {
     // formats the parameters to be included in the search
     const params = {
@@ -90,7 +118,7 @@ function formParams(city, state, number, type) {
     return newParams;
 }
 
-/* ----- 4 ----- */
+/* ----- 5 ----- */
 function getBrewery(paramsObj) {
     // formats uri string to pass in the fetch
     const baseUri = "https://api.openbrewerydb.org/breweries";
@@ -110,12 +138,10 @@ function handleStartForm() {
         const userBreweryState = $('.js-brewery-state').val();
         const userBreweryNumber = $('.js-brewery-number').val();
         const userBreweryType = $('.js-type-selector').val();
-        $('.js-brewery-city').val('');
-        $('.js-brewery-state').val('');
-        $('.js-brewery-number').val('20');
-        $('.js-type-selector').val('');
         $('.js-start-section').hide();
 
+        clearDOM();
+        requireCityOrState(userBreweryCity, userBreweryState);
         const paramsObj = formParams(userBreweryCity, userBreweryState, userBreweryNumber, userBreweryType);
         getBrewery(paramsObj);
     });
@@ -130,11 +156,9 @@ function handleMainForm() {
         const userBreweryState = $('.js-main-state').val();
         const userBreweryNumber = $('.js-main-number').val();
         const userBreweryType = $('.js-main-type').val();
-        $('.js-main-city').val('');
-        $('.js-main-state').val('');
-        $('.js-main-number').val('20');
-        $('.js-main-type').val('');
 
+        clearDOM();
+        requireCityOrState(userBreweryCity, userBreweryState);
         const paramsObj = formParams(userBreweryCity, userBreweryState, userBreweryNumber, userBreweryType);
         getBrewery(paramsObj);
     });
